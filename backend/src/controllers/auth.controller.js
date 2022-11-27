@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 import User from '../models/User.js';
 
@@ -20,8 +21,9 @@ export const register = async (req, res) => {
             impression: Math.floor(Math.random() * 10000),
         });
         const savedUser = await newUser.save();
+        const { password: currentPassword, ...responseData } = savedUser._doc;
 
-        res.status(201).json(savedUser);
+        res.status(201).json(responseData);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -38,7 +40,7 @@ export const login = async (req, res) => {
         if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY);
-        delete user.password;
+        delete user._doc.password;
 
         res.status(200).json({ token, user });
     } catch (error) {
