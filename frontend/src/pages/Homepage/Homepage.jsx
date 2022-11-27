@@ -1,5 +1,10 @@
+import { Box } from "@mui/material";
+import { Navbar } from "components";
+
 const Homepage = () => {
-    return <div>Homepage</div>;
+    return <Box>
+        <Navbar />
+    </Box>;
 };
 
 export default Homepage;
