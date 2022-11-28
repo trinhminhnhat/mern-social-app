@@ -1,19 +1,27 @@
 import { Close, DarkMode, Help, LightMode, Menu, Message, Notifications, Search } from '@mui/icons-material';
 import {
-    Box, FormControl, IconButton,
-    InputBase, MenuItem, Select, Typography, useMediaQuery, useTheme
+    Box,
+    FormControl,
+    IconButton,
+    InputBase,
+    MenuItem,
+    Select,
+    Typography,
+    useMediaQuery,
+    useTheme
 } from '@mui/material';
-import { FlexBetween } from 'components';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
+import { FlexBetween } from 'components';
 import { setLogout, setMode } from 'state';
 
 const Navbar = () => {
     const [isMobileMenuTogged, setIsMobileMenuToggled] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const user = useSelector((state) => state.auth);
+    const user = useSelector((state) => state.user);
     const isNonMobileScreen = useMediaQuery('(min-width: 1000px)');
 
     const theme = useTheme();

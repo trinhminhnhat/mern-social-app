@@ -5,12 +5,13 @@ import Login from 'pages/Login';
 import Profile from 'pages/Profile';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { themeSettings } from './theme';
 
 function App() {
     const mode = useSelector((state) => state.mode);
     const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+    const isAuth = Boolean(useSelector((state) => state.token));
 
     return (
         <div className="app">
@@ -19,8 +20,8 @@ function App() {
                     <CssBaseline />
                     <Routes>
                         <Route path="/login" element={<Login />} />
-                        <Route path="/" element={<Homepage />} />
-                        <Route path="/profile/:userId" element={<Profile />} />
+                        <Route path="/" element={isAuth ? <Homepage /> : <Navigate to="/login" />} />
+                        <Route path="/profile/:userId" element={isAuth ? <Profile /> : <Navigate to="/login" />} />
                     </Routes>
                 </ThemeProvider>
             </BrowserRouter>
