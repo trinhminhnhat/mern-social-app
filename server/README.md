@@ -1,4 +1,4 @@
-# TMediaN - Frontend
+# TMediaN - Backend
 
 ## ⚓ Environment
 
@@ -7,7 +7,7 @@
 ## 💻 How to run
 
 ```bash
-> cd client
+> cd server
 > cp .env.example .env
 > yarn install
 > yarn start
